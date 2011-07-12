@@ -4,5 +4,5 @@ The pageSize bookmarklet gives a visual representation of the current viewport d
 
 #How to Use
 
-Simply copy the contents of bookmarklet.js into your bookmark bar or go to http://seesparkbox.com/foundry/media_query_bookmarklet and click the 'Add to Bookmark Bar' link.
+Copy the first line (afteer the '//') of pageSize.js into a bookmark.
 
