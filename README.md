@@ -1,6 +1,6 @@
-#pageSize Bookmarklet
+#mediaQuery Bookmarklet
 
-The pageSize bookmarklet gives a visual representation of the current viewport dimensions and most recently fired media query.
+The mediaQuery bookmarklet gives a visual representation of the current viewport dimensions and most recently fired media query.
 
 #How to Use
 
