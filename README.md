@@ -1,6 +1,6 @@
 #mediaQuery Bookmarklet
 
-The mediaQuery bookmarklet gives a visual representation of the current viewport dimensions and most recently fired media query.
+The mediaQuery bookmarklet gives a visual representation of the current viewport dimensions and most recently fired media query. Check out <a href="http://seesparkbox.com/foundry/media_query_bookmarklet">our blog</a> for more info.
 
 #How to Use
 
