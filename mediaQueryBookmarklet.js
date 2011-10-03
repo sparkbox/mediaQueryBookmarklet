@@ -58,7 +58,7 @@
       position: 'fixed',
       right: '0',
       top: '0',
-      zIndex: 9999
+      zIndex: 99999
     });
         
     if (window.matchMedia) {
