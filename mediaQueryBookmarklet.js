@@ -59,22 +59,31 @@ var mqb = {
       cursor: 'pointer',
       fontSize: '13px'
     },
+    emTestStyles = {
+      height: 0,
+      width: '1em'
+    },
+
     dimensionContainer = document.createElement( 'div' ),
     queryContainer = document.createElement( 'div' ),
     linksContainer = document.createElement( 'div' ),
     versionLink = document.createElement( 'a' ),
-    closeButton = document.createElement( 'a' );
-    positionButton = document.createElement( 'a' );
+    closeButton = document.createElement( 'a' ),
+    positionButton = document.createElement( 'a' ),
+    emTest = document.createElement( 'div' );
     
     mqb.display.className = 'sb-pageSize';
     mqb.display.id = "sb-mediaQueryBookmarklet";
     dimensionContainer.className = "sb-dimensions";
+    dimensionContainer.id = "dimensions";
+
     queryContainer.className = "sb-mq";
     versionLink.href = 'https://github.com/sparkbox/mediaQueryBookmarklet';      
     versionLink.innerHTML = 'version ' + this.version;
     closeButton.href = '.';
     closeButton.innerHTML = '(close)';
     positionButton.innerHTML = '⇤';
+    emTest.id = "emTest";
 
     closeButton.addEventListener( 'click', function( e ) {
       mqb.close( e );
@@ -115,12 +124,17 @@ var mqb = {
     for (i in positionButtonStyles) {
       positionButton.style[i] = positionButtonStyles[i];
     }
+    for (i in emTestStyles) {
+      emTest.style[i] = emTestStyles[i];
+    }
     mqb.display.appendChild( dimensionContainer );
     mqb.display.appendChild( queryContainer );
     linksContainer.appendChild( versionLink );
     linksContainer.appendChild( closeButton );
     linksContainer.appendChild( positionButton );
     mqb.display.appendChild( linksContainer );
+    mqb.display.appendChild( emTest );
+
 
     document.body.appendChild(mqb.display);
   },
@@ -177,8 +191,12 @@ var mqb = {
     }
   },
   
+  findEmSize: function() {
+    return document.getElementById('emTest').clientWidth;
+  },
+
   showCurrentSize: function() {
-    document.querySelectorAll('.sb-dimensions')[0].innerHTML = window.innerWidth + 'px x ' + window.innerHeight + 'px';
+    document.getElementById('dimensions').innerHTML = window.innerWidth + 'px x ' + window.innerHeight + 'px<br>' + ( window.innerWidth / this.findEmSize() ) + 'em ' + ( window.innerHeight / this.findEmSize() ) + 'em';
   },
   
   mqChange: function() {
