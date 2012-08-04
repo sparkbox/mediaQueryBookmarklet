@@ -3,7 +3,7 @@
 var mqb = {
 
   init: function() {
-    mqb.version = '1.3.1';
+    mqb.version = '1.3.5';
     mqb.mqList = [];
     mqb.matchMedia = window.matchMedia !== undefined;
 
@@ -17,61 +17,38 @@ var mqb = {
     mqb.display = document.createElement( 'div' );
 
     var i,
-    displayStyles = {
-      color: '#000',
-      background: '#fff',
-      fontWeight: 'bold',
-      opacity: '.9',
-      padding: '15px',
-      position: 'fixed',
-      right: '0',
-      top: '0',
-      zIndex: 99999
-    },
-    dimensionStyles = {
-      fontSize: '25px',
-      textTransform: 'lowercase',
-      borderBottom: '1px dashed #000',
-      paddingBottom: '5px',
-      marginBottom: '10px'
-    },
-    queryStyles = {
-      fontSize: '16px',
-      textTransform: 'lowercase'
-    },
-    linksContainerStyles = {
-      fontSize: '10px',
-      marginTop: '10px',
-      textAlign: 'right'
-    },
-    versionStyles = {
-      color: '#444',
-      textTransform: 'lowercase',
-    },
-    closeButtonStyles = {
-      color: '#444',
-      display: 'block',
-      marginTop: '5px',
-      textDecoration: 'none'
-    },
-    positionButtonStyles = {
-      color: '#444',
-      cursor: 'pointer',
-      fontSize: '13px'
-    },
-    emTestStyles = {
-      height: 0,
-      width: '1em'
-    },
 
+    /* Create all of the elements needed */
     dimensionContainer = document.createElement( 'div' ),
     queryContainer = document.createElement( 'div' ),
     linksContainer = document.createElement( 'div' ),
     versionLink = document.createElement( 'a' ),
     closeButton = document.createElement( 'a' ),
-    positionButton = document.createElement( 'a' ),
-    emTest = document.createElement( 'div' );
+    positionButton = document.createElement( 'a' );
     
+    mqb.mouseXPosition = document.createElement( 'div' );
+    mqb.mouseYPosition = document.createElement( 'div' );
+    mqb.styles = document.createElement( 'link' );
+    mqb.emTest = document.createElement( 'div' );
+
+    /* Assign Class names */
+    mqb.display.className = "mqb-display";
+    dimensionContainer.className = "mqb-container";
+    queryContainer.className = "mqb-queryContainer";
+    linksContainer.className = "mqb-linksContainer";
+    versionLink.className = "mqb-version";
+    closeButton.className = "mqb-closeButton";
+    positionButton.className = "mqb-positionButton";
+    
+    mqb.mouseXPosition = "mqb-mouseXPos";
+    mqb.mouseYPosition = "mqb-mouseYPos";
+    mqb.emTest = "mqb-emTest";
+
+    /* Set properties */
+    mqb.styles.type = "text/css";
+    mqb.styles.rel = "stylesheet";
+    mqb.styles.href = "http://localhost/mediaQueryBookmarklet/css/mediaQuery.css";
+
     mqb.display.className = 'sb-pageSize';
     mqb.display.id = "sb-mediaQueryBookmarklet";
     dimensionContainer.className = "sb-dimensions";
@@ -82,8 +59,7 @@ var mqb = {
     versionLink.innerHTML = 'version ' + this.version;
     closeButton.href = '.';
     closeButton.innerHTML = '(close)';
-    positionButton.innerHTML = '⇤';
-    emTest.id = "emTest";
+    mqb.emTest.id = "emTest";
 
     closeButton.addEventListener( 'click', function( e ) {
       mqb.close( e );
@@ -95,54 +71,36 @@ var mqb = {
       if ( mqb.display.style.left == 'auto' ) {
         mqb.display.style.right = 'auto';
         mqb.display.style.left = 0;
-        positionButton.innerHTML = '⇥';
+        positionButton.style.backgroundImage = 'url(http://sparkbox.github.com/mediaQueryBookmarklet/images/right.png)';
       } else {
         mqb.display.style.right = 0;
         mqb.display.style.left = 'auto';
-        positionButton.innerHTML = '⇤';
+        positionButton.style.backgroundImage = 'url(http://sparkbox.github.com/mediaQueryBookmarklet/images/left.png)';
       }
     });
     
-    for (i in displayStyles) {
-      mqb.display.style[i] = displayStyles[i];
-    }
-    for (i in dimensionStyles) {
-      dimensionContainer.style[i] = dimensionStyles[i];
-    }
-    for (i in queryStyles) {
-      queryContainer.style[i] = queryStyles[i];
-    }
-    for (i in linksContainerStyles) {
-      linksContainer.style[i] = linksContainerStyles[i];
-    }
-    for (i in versionStyles) {
-      versionLink.style[i] = versionStyles[i];
-    }
-    for (i in closeButtonStyles) {
-      closeButton.style[i] = closeButtonStyles[i];
-    }
-    for (i in positionButtonStyles) {
-      positionButton.style[i] = positionButtonStyles[i];
-    }
-    for (i in emTestStyles) {
-      emTest.style[i] = emTestStyles[i];
-    }
     mqb.display.appendChild( dimensionContainer );
     mqb.display.appendChild( queryContainer );
     linksContainer.appendChild( versionLink );
     linksContainer.appendChild( closeButton );
     linksContainer.appendChild( positionButton );
     mqb.display.appendChild( linksContainer );
-    mqb.display.appendChild( emTest );
+    mqb.display.appendChild( linksContainer );
 
-
+    document.head.appendChild( mqb.emTest );
+    document.head.appendChild( mqb.styles );
     document.body.appendChild(mqb.display);
+    document.body.appendChild( mqb.mouseXPosition );
+    document.body.appendChild( mqb.mouseYPosition );
   },
 
   close: function( e ) {
     e.preventDefault();
 
     document.body.removeChild( mqb.display );
+    document.body.removeChild( mqb.mouseXPosition );
+    document.head.parentNode.removeChild( mqb.emTest );
+    document.head.parentNode.removeChild( mqb.styles );
   },
   
   getMediaQueries: function() {
@@ -185,7 +143,7 @@ var mqb = {
     }
     
     for ( i = links.length-1; i >= 0; i-- ) {
-      if ( links[ i ].media != '' ) {
+      if ( links[ i ].media !== '' ) {
         this.mqList.push( window.matchMedia( links[ i ].media ) );
       }
     }
@@ -196,7 +154,9 @@ var mqb = {
   },
 
   showCurrentSize: function() {
-    document.getElementById('dimensions').innerHTML = window.innerWidth + 'px x ' + window.innerHeight + 'px<br>' + ( window.innerWidth / this.findEmSize() ) + 'em ' + ( window.innerHeight / this.findEmSize() ) + 'em';
+    var width = document.width || window.outerWidth;
+    var height = document.height || window.outerHeight;
+    document.getElementById('dimensions').innerHTML = width + 'px x ' + height + 'px<br>' + ( width / this.findEmSize() ).toPrecision(4) + 'em x ' + ( height / this.findEmSize() ).toPrecision(4) + 'em';
   },
   
   mqChange: function() {
@@ -212,13 +172,21 @@ var mqb = {
   
   pageSize: function() {
     this.appendDisplay();
-    
+    this.setUpMouseControls();
     window.addEventListener('resize', function() {
       mqb.showCurrentSize();
       if (mqb.matchMedia) {
         mqb.mqChange();
       }
     }, false);
+  },
+
+  setUpMouseControls: function() {
+    document.addEventListener( 'mousemove', mqb.showCurrentMousePos );
+  },
+
+  showCurrentMousePos: function( e ) {
+    mqb.mouseXPosition.style.left = e.clientX + "px";
   }
 
 };

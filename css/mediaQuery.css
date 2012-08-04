@@ -1,0 +1,75 @@
+.mqb-display {
+  color: #000;
+  background: #fff;
+  font-weight: bold;
+  opacity: .9;
+  padding: 15px;
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: 99999;
+}
+
+.mqb-container {
+  font-size: 25px;
+  text-transform: lowercase;
+  border-bottom: 1px dashed #000;
+  padding-bottom: 5px;
+  margin-bottom: 10px
+}
+
+.mqb-queryContainer {
+  font-size: 16px;
+  text-transform: lowercase
+}
+
+.mqb-linksContainer {
+  font-size: 10px;
+  margin-top: 10px;
+  text-align: right
+}
+
+.mqb-version {
+  color: #444;
+  text-transform: lowercase
+}
+
+.mqb-closeButton {
+  color: #444;
+  display: block;
+  margin-top: 5px;
+  text-decoration: none
+}
+
+.mqb-positionButton {
+  color: #444;
+  cursor: pointer;
+  background: url(http://sparkbox.github.com/mediaQueryBookmarklet/images/left.png) no-repeat 50%;
+  display: block;
+  float: right;
+  height: 15px;
+  width: 44px
+}
+
+.mqb-emTest {
+  height: 0;
+  width: 1em
+}
+
+.mqb-mouseXPos {
+  background: #444;
+  display: block;
+  height: 20px;
+  position: absolute;
+  top: 0;
+  width: 1px
+}
+
+.mqb-mouseYPos {
+  background: #444;
+  display: block;
+  height: 1px;
+  position: absolute;
+  right: 0;
+  width: 20px
+}
