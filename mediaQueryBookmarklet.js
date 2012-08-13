@@ -1,134 +1,105 @@
 // This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 Unported License.
 
-var mqb = {
+window.mqb = {
 
   init: function() {
-    mqb.version = '1.3.5';
-    mqb.mqList = [];
-    mqb.matchMedia = window.matchMedia !== undefined;
-
+    /* If the bookmarklet already exists on the page, remove it */
     var bookmarklet = document.getElementById( 'sb-mediaQueryBookmarklet' );
     if ( bookmarklet ) {
       document.body.removeChild( bookmarklet );
     }
+
+    mqb.version = '1.4';
+    mqb.tmpl =
+      "<p id=\"mqb-dimensions\"></p>" +
+      "<p id=\"mqb-mousePosition\"></p>" +
+      "<ol id=\"mqb-queries\"></ol>" +
+      "<div id=\"mqb-linksContainer\">" +
+      "  <a id=\"mqb-version\" href=\"https://github.com/sparkbox/mediaQueryBookmarklet\">version {{version}}</a>" +
+      "  <button id=\"mqb-closeButton\">close</button>" +
+      "  <button id=\"mqb-positionButton\"></button>" +
+      "</div>";
+    mqb.rulersTmpl = 
+      "<div id=\"mqb-horz-ruler\">" +
+      "  <div id=\"mqb-mouseXPosition\">" +
+      "</div>" +
+      "<div id=\"mqb-vert-ruler\">" +
+      "  <div id=\"mqb-mouseYPosition\">" +
+      "</div>";
+
+    mqb.emTest = document.createElement( "div" );
+    mqb.emTest.id = "mqb-emTest";
+    document.body.appendChild( mqb.emTest );
+    
+    mqb.loadCSS();
+    mqb.createTemplate();
+
+    mqb.mqList = [];
+    
+    if (window.matchMedia) {
+      mqb.createMQList();
+    }
+
+    window.addEventListener('resize', function() {
+      mqb.showCurrentSize();
+      if ( window.matchMedia ) {
+        mqb.mqChange();
+      }
+    }, false);
+    mqb.mqChange();
   },
 
   appendDisplay: function() {
-    mqb.display = document.createElement( 'div' );
+    mqb.container = document.createElement( "div" );
+    mqb.container.id = "sb-mediaQueryBookmarklet";
+    mqb.container.className = "onRight";
+    mqb.container.innerHTML = mqb.tmpl;
+    document.body.appendChild( mqb.container );
 
-    var i,
+    mqb.appendRulers();
+    mqb.attachEvents();
+  },
 
-    /* Create all of the elements needed */
-    dimensionContainer = document.createElement( 'div' ),
-    queryContainer = document.createElement( 'div' ),
-    linksContainer = document.createElement( 'div' ),
-    versionLink = document.createElement( 'a' ),
-    closeButton = document.createElement( 'a' ),
-    positionButton = document.createElement( 'a' );
-    
-    mqb.mouseXPosition = document.createElement( 'div' );
-    mqb.mouseYPosition = document.createElement( 'div' );
-    mqb.styles = document.createElement( 'link' );
-    mqb.emTest = document.createElement( 'div' );
+  appendRulers: function() {
+    mqb.rulers = document.createElement( "div" );
+    mqb.rulers.id = "sb-rulers";
+    mqb.rulers.innerHTML = mqb.rulersTmpl;
+    document.body.appendChild( mqb.rulers );  
 
-    /* Assign Class names */
-    mqb.display.className = "mqb-display";
-    dimensionContainer.className = "mqb-container";
-    queryContainer.className = "mqb-queryContainer";
-    linksContainer.className = "mqb-linksContainer";
-    versionLink.className = "mqb-version";
-    closeButton.className = "mqb-closeButton";
-    positionButton.className = "mqb-positionButton";
-    
-    mqb.mouseXPosition = "mqb-mouseXPos";
-    mqb.mouseYPosition = "mqb-mouseYPos";
-    mqb.emTest = "mqb-emTest";
+    mqb.mouseXPosition = document.getElementById( "mqb-mouseXPosition" );
+    mqb.mouseYPosition = document.getElementById( "mqb-mouseYPosition" );
+    mqb.showMousePosition = document.getElementById( "mqb-mousePosition" );
+  },
 
-    /* Set properties */
-    mqb.styles.type = "text/css";
-    mqb.styles.rel = "stylesheet";
-    mqb.styles.href = "http://localhost/mediaQueryBookmarklet/css/mediaQuery.css";
-
-    mqb.display.className = 'sb-pageSize';
-    mqb.display.id = "sb-mediaQueryBookmarklet";
-    dimensionContainer.className = "sb-dimensions";
-    dimensionContainer.id = "dimensions";
-
-    queryContainer.className = "sb-mq";
-    versionLink.href = 'https://github.com/sparkbox/mediaQueryBookmarklet';      
-    versionLink.innerHTML = 'version ' + this.version;
-    closeButton.href = '.';
-    closeButton.innerHTML = '(close)';
-    mqb.emTest.id = "emTest";
-
-    closeButton.addEventListener( 'click', function( e ) {
+  attachEvents: function() {
+    /* Close Button */
+    document.getElementById( "mqb-closeButton" ).addEventListener( "click", function( e ) {
       mqb.close( e );
       mqb = null;
     });
 
-    // Quick and dirty. I'll clean it up later. I promise.
-    positionButton.addEventListener( 'click', function( e ) {
-      if ( mqb.display.style.left == 'auto' ) {
-        mqb.display.style.right = 'auto';
-        mqb.display.style.left = 0;
-        positionButton.style.backgroundImage = 'url(http://sparkbox.github.com/mediaQueryBookmarklet/images/right.png)';
+    /* Position Button */
+    document.getElementById( "mqb-positionButton" ).addEventListener( 'click', function( e ) {
+      if ( mqb.container.className == "onLeft" ) {
+        mqb.container.className = "onRight";
       } else {
-        mqb.display.style.right = 0;
-        mqb.display.style.left = 'auto';
-        positionButton.style.backgroundImage = 'url(http://sparkbox.github.com/mediaQueryBookmarklet/images/left.png)';
+        mqb.container.className = "onLeft";
       }
     });
-    
-    mqb.display.appendChild( dimensionContainer );
-    mqb.display.appendChild( queryContainer );
-    linksContainer.appendChild( versionLink );
-    linksContainer.appendChild( closeButton );
-    linksContainer.appendChild( positionButton );
-    mqb.display.appendChild( linksContainer );
-    mqb.display.appendChild( linksContainer );
 
-    document.head.appendChild( mqb.emTest );
-    document.head.appendChild( mqb.styles );
-    document.body.appendChild(mqb.display);
-    document.body.appendChild( mqb.mouseXPosition );
-    document.body.appendChild( mqb.mouseYPosition );
+    document.addEventListener( 'mousemove', mqb.showCurrentMousePos );
+
   },
 
   close: function( e ) {
     e.preventDefault();
 
-    document.body.removeChild( mqb.display );
-    document.body.removeChild( mqb.mouseXPosition );
-    document.head.parentNode.removeChild( mqb.emTest );
-    document.head.parentNode.removeChild( mqb.styles );
-  },
-  
-  getMediaQueries: function() {
-    var sheetList = document.styleSheets,
-        ruleList,
-        i, j,
-        mediaQueries = [];
+    document.body.removeChild( mqb.container );
+    document.body.removeChild( mqb.emTest );
+    document.body.removeChild( mqb.rulers );
+    document.head.removeChild( mqb.css );
 
-    for (i=sheetList.length-1; i >= 0; i--) {
-      ruleList = sheetList[i].cssRules;
-      if (ruleList) {
-        for (j=0; j<ruleList.length; j++) {
-          if (ruleList[j].type == CSSRule.MEDIA_RULE) {
-            mediaQueries.push(ruleList[j].media.mediaText);
-          }
-        }
-      }
-    }
-    return mediaQueries;
-  },
-  
-  inList: function( media ) {
-    for ( var i = this.mqList.length - 1; i >= 0; i-- ) {
-      if ( this.mqList[ i ].media === media ) {
-        return true;
-      }
-    }
-    return false;
+    document.removeEventListener( 'mousemove', mqb.showCurrentMousePos );
   },
 
   createMQList: function() {
@@ -148,56 +119,87 @@ var mqb = {
       }
     }
   },
-  
-  findEmSize: function() {
-    return document.getElementById('emTest').clientWidth;
+
+  createTemplate: function() {
+    mqb.appendDisplay();
+    mqb.viewDimensions = document.getElementById( "mqb-dimensions" );
+    mqb.viewQueries = document.getElementById( "mqb-queries" );
+    mqb.tmplReplace( "mqb-version", "version " + mqb.version );
+    mqb.updateDisplay();
   },
+
+  findEmSize: function() {
+    return mqb.emTest.clientWidth;
+  },
+
+  getMediaQueries: function() {
+    var sheetList = document.styleSheets,
+        ruleList,
+        i, j,
+        mediaQueries = [];
+
+    for ( i=sheetList.length-1; i >= 0; i-- ) {
+      ruleList = sheetList[ i ].cssRules;
+      if ( ruleList ) {
+        for ( j=0; j<ruleList.length; j++ ) {
+          if ( ruleList[j].type == CSSRule.MEDIA_RULE ) {
+            mediaQueries.push( ruleList[ j ].media.mediaText );
+          }
+        }
+      }
+    }
+    return mediaQueries;
+  },
+
+  inList: function( media ) {
+    for ( var i = this.mqList.length - 1; i >= 0; i-- ) {
+      if ( this.mqList[ i ].media === media ) {
+        return true;
+      }
+    }
+    return false;
+  },
+
+  loadCSS: function() {
+    mqb.css = document.createElement( 'link' );
+    mqb.css.type = "text/css";
+    mqb.css.rel = "stylesheet";
+    mqb.css.href = "http://localhost/mediaQueryBookmarklet/css/mediaQuery.css";
+    document.head.appendChild( mqb.css );
+  },
+
+  mqChange: function() {
+    var html = '';
+    
+    for ( var i in mqb.mqList ) {
+      if ( mqb.mqList[ i ].matches ) {
+        html += mqb.mqList[ i ].media + "<br>";
+      }
+    }
+    mqb.viewQueries.innerHTML = html;
+  },  
 
   showCurrentSize: function() {
     var width = document.width || window.outerWidth;
     var height = document.height || window.outerHeight;
-    document.getElementById('dimensions').innerHTML = width + 'px x ' + height + 'px<br>' + ( width / this.findEmSize() ).toPrecision(4) + 'em x ' + ( height / this.findEmSize() ).toPrecision(4) + 'em';
-  },
-  
-  mqChange: function() {
-    var html = '';
-    
-    for (var i in mqb.mqList) {
-      if (mqb.mqList[i].matches) {
-        html += mqb.mqList[i].media + "<br>";
-      }
-    }
-    document.querySelectorAll('.sb-mq')[0].innerHTML = html;
-  },  
-  
-  pageSize: function() {
-    this.appendDisplay();
-    this.setUpMouseControls();
-    window.addEventListener('resize', function() {
-      mqb.showCurrentSize();
-      if (mqb.matchMedia) {
-        mqb.mqChange();
-      }
-    }, false);
+    mqb.viewDimensions.innerHTML = width + 'px x ' + height + 'px<br>' + ( width / mqb.findEmSize() ).toPrecision( 4 ) + 'em x ' + ( height / mqb.findEmSize() ).toPrecision( 4 ) + 'em';
   },
 
-  setUpMouseControls: function() {
-    document.addEventListener( 'mousemove', mqb.showCurrentMousePos );
+  tmplReplace: function( dstID, src ) {
+    document.getElementById( dstID ).innerHTML = src;
+  },
+
+  updateDisplay: function() {
+    mqb.showCurrentSize();
   },
 
   showCurrentMousePos: function( e ) {
     mqb.mouseXPosition.style.left = e.clientX + "px";
+    mqb.mouseYPosition.style.top = e.clientY + "px";
+
+    mqb.showMousePosition.innerHTML = "x:" + e.clientX + "px&nbsp;&nbsp;&nbsp;y:" + e.clientY + "px";
   }
 
 };
 
 mqb.init();
-
-if (mqb.matchMedia) {
-  mqb.createMQList();
-}
-mqb.pageSize();
-mqb.showCurrentSize();
-if (mqb.matchMedia) {
-  mqb.mqChange();
-}

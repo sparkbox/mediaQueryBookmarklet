@@ -1,75 +1,121 @@
-.mqb-display {
+#sb-mediaQueryBookmarklet {
   color: #000;
   background: #fff;
   font-weight: bold;
   opacity: .9;
-  padding: 15px;
+  padding: 5px 15px 15px;
   position: fixed;
   right: 0;
-  top: 0;
+  top: 10px;
   z-index: 99999;
 }
 
-.mqb-container {
+#sb-mediaQueryBookmarklet.onLeft {
+  left: 10px;
+  right: auto;
+}
+
+#mqb-dimensions {
+  font-size: 25px;
+  text-transform: lowercase;
+  padding-bottom: 5px;
+  margin: 0;
+}
+
+#mqb-mousePosition {
   font-size: 25px;
   text-transform: lowercase;
   border-bottom: 1px dashed #000;
   padding-bottom: 5px;
-  margin-bottom: 10px
+  margin: 0 0 10px;
 }
 
-.mqb-queryContainer {
+#mqb-queries {
   font-size: 16px;
-  text-transform: lowercase
+  text-transform: lowercase;
 }
 
-.mqb-linksContainer {
+#mqb-linksContainer {
   font-size: 10px;
   margin-top: 10px;
-  text-align: right
+  text-align: right;
 }
 
-.mqb-version {
+#mqb-version {
   color: #444;
-  text-transform: lowercase
+  float: right;
+  text-transform: lowercase;
 }
 
-.mqb-closeButton {
+#mqb-closeButton {
+  -webkit-appearance: none;
+  background: transparent;
+  border: none;
+  clear: right;
   color: #444;
   display: block;
+  float: right;
   margin-top: 5px;
-  text-decoration: none
+  text-decoration: none;
+}
+#mqb-closeButton:before {
+  content: "(";
+}
+#mqb-closeButton:after {
+  content: ")";
 }
 
-.mqb-positionButton {
+#mqb-positionButton {
+  -webkit-appearance: none;
+  border: none;
+  clear: right;
   color: #444;
   cursor: pointer;
   background: url(http://sparkbox.github.com/mediaQueryBookmarklet/images/left.png) no-repeat 50%;
   display: block;
   float: right;
   height: 15px;
-  width: 44px
+  width: 44px;
+}
+.onLeft #mqb-positionButton {
+  background-image: url(http://sparkbox.github.com/mediaQueryBookmarklet/images/right.png);
 }
 
-.mqb-emTest {
+#mqb-emTest {
   height: 0;
-  width: 1em
+  width: 1em;
 }
 
-.mqb-mouseXPos {
-  background: #444;
+#mqb-mouseXPosition {
+  background: #0e6500;
   display: block;
   height: 20px;
-  position: absolute;
+  position: fixed;
   top: 0;
-  width: 1px
+  width: 1px;
+  z-index: 99999;
 }
-
-.mqb-mouseYPos {
-  background: #444;
+#mqb-mouseYPosition {
+  background: #0e6500;
   display: block;
   height: 1px;
-  position: absolute;
-  right: 0;
-  width: 20px
+  position: fixed;
+  left: 0;
+  width: 20px;
+  z-index: 100000;
+}
+
+#mqb-horz-ruler {
+  background: rgba(255, 255, 255, .5) url(../img/ruler.png) repeat-x;
+  height: 10px;
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+#mqb-vert-ruler {
+  background: rgba(255, 255, 255, .5) url(../img/vert-ruler.png) repeat-y;
+  height: 100%;
+  position: fixed;
+  left: 0;
+  width: 10px;
 }
