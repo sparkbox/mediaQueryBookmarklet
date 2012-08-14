@@ -38,15 +38,16 @@ window.mqb = {
     
     if (window.matchMedia) {
       mqb.createMQList();
-    }
 
-    window.addEventListener('resize', function() {
-      mqb.showCurrentSize();
-      if ( window.matchMedia ) {
-        mqb.mqChange();
-      }
-    }, false);
-    mqb.mqChange();
+      window.addEventListener('resize', function() {
+        mqb.showCurrentSize();
+        if ( window.matchMedia ) {
+          mqb.mqChange();
+        }
+      }, false);
+      mqb.mqChange();
+    }
+    mqb.showCurrentSize();
   },
 
   appendDisplay: function() {
@@ -88,7 +89,6 @@ window.mqb = {
     });
 
     document.addEventListener( 'mousemove', mqb.showCurrentMousePos );
-
   },
 
   close: function( e ) {
@@ -182,7 +182,7 @@ window.mqb = {
   showCurrentSize: function() {
     var width = document.width || window.outerWidth;
     var height = document.height || window.outerHeight;
-    mqb.viewDimensions.innerHTML = width + 'px x ' + height + 'px<br>' + ( width / mqb.findEmSize() ).toPrecision( 4 ) + 'em x ' + ( height / mqb.findEmSize() ).toPrecision( 4 ) + 'em';
+    mqb.viewDimensions.innerHTML = width + 'px x ' + height + 'px<br/>' + ( width / mqb.findEmSize() ).toPrecision( 4 ) + 'em x ' + ( height / mqb.findEmSize() ).toPrecision( 4 ) + 'em';
   },
 
   tmplReplace: function( dstID, src ) {
