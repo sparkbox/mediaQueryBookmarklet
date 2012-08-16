@@ -32,6 +32,8 @@
 
 #mqb-queries {
   font-size: 16px;
+  list-style: none;
+  padding: 0;
   text-transform: lowercase;
 }
 

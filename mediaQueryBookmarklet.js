@@ -184,7 +184,7 @@ window.mqb = {
     
     for ( var i in mqb.mqList ) {
       if ( mqb.mqList[ i ].matches ) {
-        html += mqb.mqList[ i ].media + "<br>";
+        html += "<li>" + mqb.mqList[ i ].media + "</li>";
       }
     }
     mqb.viewQueries.innerHTML = html;
