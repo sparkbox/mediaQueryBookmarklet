@@ -9,7 +9,7 @@ window.mqb = {
       document.body.removeChild( bookmarklet );
     }
 
-    mqb.version = '1.4';
+    mqb.version = '1.4.1';
     mqb.tmpl =
       "<p id=\"mqb-dimensions\"></p>" +
       "<p id=\"mqb-mousePosition\"></p>" +
@@ -36,18 +36,17 @@ window.mqb = {
 
     mqb.mqList = [];
     
-    if (window.matchMedia) {
-      mqb.createMQList();
+    mqb.createMQList();
 
-      window.addEventListener('resize', function() {
-        mqb.showCurrentSize();
-        if ( window.matchMedia ) {
-          mqb.mqChange();
-        }
-      }, false);
-      mqb.mqChange();
-    }
-    mqb.showCurrentSize();
+    window.addEventListener('resize', function() {
+      mqb.showCurrentSize();
+      if ( window.matchMedia ) {
+        mqb.mqChange();
+      }
+    }, false);
+    mqb.mqChange();
+
+    mqb.initEmSize();
   },
 
   appendDisplay: function() {
@@ -139,16 +138,28 @@ window.mqb = {
         mediaQueries = [];
 
     for ( i=sheetList.length-1; i >= 0; i-- ) {
-      ruleList = sheetList[ i ].cssRules;
-      if ( ruleList ) {
-        for ( j=0; j<ruleList.length; j++ ) {
-          if ( ruleList[j].type == CSSRule.MEDIA_RULE ) {
-            mediaQueries.push( ruleList[ j ].media.mediaText );
+      try {
+        ruleList = sheetList[ i ].cssRules;
+        if ( ruleList ) {
+          for ( j=0; j<ruleList.length; j++ ) {
+            if ( ruleList[j].type == CSSRule.MEDIA_RULE ) {
+              mediaQueries.push( ruleList[ j ].media.mediaText );
+            }
           }
         }
-      }
+      } catch(e) {}
     }
     return mediaQueries;
+  },
+
+  initEmSize: function() {
+    mqb.cssTimer = setTimeout( function() {
+      if ( mqb.emTest.clientWidth === 0 ) {
+        mqb.initEmSize();
+      } else {
+        mqb.showCurrentSize();
+      }
+    }, 250);
   },
 
   inList: function( media ) {
