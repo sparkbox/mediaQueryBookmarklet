@@ -9,7 +9,7 @@ window.mqb = {
       document.body.removeChild( bookmarklet );
     }
 
-    mqb.version = '1.4.1';
+    mqb.version = '1.4.2';
     mqb.tmpl =
       "<p id=\"mqb-dimensions\"></p>" +
       "<p id=\"mqb-mousePosition\"></p>" +
