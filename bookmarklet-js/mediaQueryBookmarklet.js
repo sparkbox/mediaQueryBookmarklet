@@ -47,24 +47,7 @@ window.mqb = {
     }, false);
     mqb.mqChange();
 
-    mqb.drawGuides();
-    mqb.addCSSForGuides();
-
     mqb.initEmSize();
-  },
-
-  addCSSForGuides: function() {
-    mqb.guideStyles = [];
-
-    for ( i in mqb.mqList ) {
-      mqb.guideStyles[ i ] = document.createElement( "style" );
-      mqb.guideStyles[ i ].innerHTML = "@media (max-width: " + mqb.mqList[ i ].media.match( /\([\w\-\:]*\s+(\d+)([a-z]+)\)/ )[1] + mqb.mqList[ i ].media.match( /\([\w\-\:]*\s+(\d+)([a-z]+)\)/ )[2] + ") { " +
-                       "  #mqbGuide-" + i + " {" +
-                       "    left: -10px;" +
-                       "  }" +
-                       "}";
-      document.head.appendChild( mqb.guideStyles[ i ] );
-    }
   },
 
   appendDisplay: function() {
@@ -149,20 +132,6 @@ window.mqb = {
     mqb.showCurrentSize();
   },
 
-  drawGuides: function() {
-    var i;
-
-    mqb.guides = [];
-
-    for ( i in mqb.mqList ) {
-      mqb.guides[ i ] = document.createElement( "div" );
-      mqb.guides[ i ].id = "mqbGuide-" + i;
-      mqb.guides[ i ].className = "mqb-guide";
-      mqb.guides[ i ].style.left = mqb.mqList[ i ].media.match( /\([\w\-\:]*\s+(\d+)([a-z]+)\)/ )[1] + mqb.mqList[ i ].media.match( /\([\w\-\:]*\s+(\d+)([a-z]+)\)/ )[2];
-      mqb.rulers.appendChild( mqb.guides[ i ] );
-    }
-  },
-
   findEmSize: function() {
     return mqb.emTest.clientWidth;
   },
@@ -212,6 +181,7 @@ window.mqb = {
     mqb.css.type = "text/css";
     mqb.css.rel = "stylesheet";
     mqb.css.href = "http://sparkbox.github.com/mediaQueryBookmarklet/stylesheets/mediaQuery.css";
+    mqb.css.href = "http://localhost/mediaQueryBookmarklet/stylesheets/mediaQuery.css";
     document.head.appendChild( mqb.css );
   },
 
