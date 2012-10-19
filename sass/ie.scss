@@ -1,0 +1,18 @@
+@import "mixins";
+@import "variables";
+@import "reset";
+@import "grid";
+
+// List all resolution styles you wish to serve to IE here
+@import "smallest";
+@import "470";
+@import "540";
+@import "600";
+
+.lt-ie7 body {
+	background-image: none;
+}
+
+.lt-ie7 .message {
+	background-image: none;
+}

@@ -1,0 +1,32 @@
+.callout {
+	h2 {
+		border-radius: 3px;
+		display: table;
+		&:before {
+			content: "";
+			width: 0;
+			height: 0;
+			border-top: 1.7em solid transparent;
+			border-right: 0.5em solid white;
+			border-bottom: 1.7em solid transparent;
+			position: absolute;
+			top: 0em;
+			left: -.47em;
+		}
+		&:after {
+			content: "";
+			width: 0;
+			height: 0;
+			border-top: 1.7em solid transparent;
+			border-left: .5em solid white;
+			border-bottom: 1.7em solid transparent;
+			position: absolute;
+			top: 0em;
+			right: -0.47em;
+		}
+	}
+}
+
+small {
+	font-size: .75em;
+}

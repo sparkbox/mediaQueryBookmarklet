@@ -1,0 +1,9 @@
+/* Colors */
+
+$flavor         : #10a89e;
+$flavor-text	  : lighten($flavor, 35%);
+$base			  		: #d9d9d9;
+$secondary		  : darken($base, 25%);
+$details		  	: darken($secondary, 25%);
+$emphasis		  	: darken($base, 100%);
+$counter		  	: lighten($base, 100%);
