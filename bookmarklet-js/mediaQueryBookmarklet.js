@@ -9,7 +9,7 @@ window.mqb = {
       document.body.removeChild( bookmarklet );
     }
 
-    mqb.version = '1.4.3';
+    mqb.version = '1.4.4';
     mqb.tmpl =
       "<p id=\"mqb-dimensions\"></p>" +
       "<p id=\"mqb-mousePosition\"></p>" +
@@ -196,8 +196,8 @@ window.mqb = {
   },
 
   showCurrentSize: function() {
-    var width = document.width || window.outerWidth;
-    var height = document.height || window.outerHeight;
+    var width = window.innerWidth || window.outerWidth;
+    var height = window.innerHeight || window.outerHeight;
     mqb.viewDimensions.innerHTML = width + 'px x ' + height + 'px<br/>' + ( width / mqb.findEmSize() ).toPrecision( 4 ) + 'em x ' + ( height / mqb.findEmSize() ).toPrecision( 4 ) + 'em';
   },
 
