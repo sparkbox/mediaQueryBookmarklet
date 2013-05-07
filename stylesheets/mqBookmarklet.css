@@ -1,0 +1,53 @@
+#mqBookmarklet {
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+  position: absolute;
+  width: 75%;
+  height: 75%;
+  background: #000;
+  background: rgba(0, 0, 0, .85);
+  color: #fff;
+  padding: 40px;
+  font-family: helvetica, sans-serif;
+  border-radius: 3px;
+  left: 12.5%;
+  top: 12.5%;
+}
+
+#mqBookmarklet .mqBookmarklet-currentSize {
+  font-size: 55px;
+}
+
+#mqBookmarklet .mqBookmarklet-currentSize-value {
+ display: block;
+}
+
+#mqBookmarklet .mqBookmarklet-currentPosition {
+  font-size: 20px;
+}
+
+#mqBookmarklet .mqBookmarklet-controls {
+}
+
+#mqBookmarklet .mqBookmarklet-queryList {
+  border-top: 2px dotted #fff;
+  overflow: scroll;
+  margin-top: 10px;
+  padding-top: 10px;
+}
+
+#mqBookmarklet .mqBookmarklet-queryDefinition {
+  margin: .2em 0;
+  padding: 0;
+}
+
+@media (min-width: 500px) {
+  #mqBookmarklet .mqBookmarklet-currentPosition {
+    display: inline;
+  }
+
+  #mqBookmarklet .mqBookmarklet-controls {
+    display: inline;
+  }
+}
