@@ -1,17 +1,23 @@
 @media (min-width: 500px) {
   body {
-    background: red;
+    background: #930;
   }
 }
 
 @media (min-width: 700px) {
   body {
-    background: blue;
+    background: #039;
   }
 }
 
 @media (min-width: 900px) {
   body {
-    background: green;
+    background: #888;
+  }
+}
+
+@media (min-width: 1200px) {
+  body {
+    background: #888;
   }
 }

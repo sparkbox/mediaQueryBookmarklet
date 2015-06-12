@@ -11,10 +11,22 @@ window.mqb = {
 
     mqb.version = '1.4.4';
     mqb.tmpl =
-      "<p id=\"mqb-dimensions\"></p>" +
-      "<p id=\"mqb-mousePosition\"></p>" +
+      "<div id=\"mqb-dimensions\"></div>" +
+      "<div id=\"mqb-mousePosition\"></div>" +
       "<ol id=\"mqb-queries\"></ol>" +
       "<div id=\"mqb-linksContainer\">" +
+      "  <div>" +
+      "    <label class=\"mqb--ruler-option\">" +
+      "      <span class=\"mqb--ruler-label\">Ruler</span>" +
+      "      <input type=\"checkbox\" class=\"mqb--ruler-checkbox\">" +
+      "      <div class=\"mqb--ruler-switch\"></div>" +
+      "    </label>"+
+      "    <label class=\"mqb--ruler-option\">" +
+      "      <span class=\"mqb--ruler-label\">Pixels</span>" +
+      "      <input type=\"checkbox\" class=\"mqb--ruler-checkbox\">" +
+      "      <div class=\"mqb--ruler-switch\"></div>" +
+      "    </label>"+
+      "  </div>" +
       "  <a id=\"mqb-version\" href=\"https://github.com/sparkbox/mediaQueryBookmarklet\">version {{version}}</a>" +
       "  <button id=\"mqb-closeButton\">close</button>" +
       "  <button id=\"mqb-positionButton\"></button>" +
@@ -180,7 +192,7 @@ window.mqb = {
     mqb.css = document.createElement( 'link' );
     mqb.css.type = "text/css";
     mqb.css.rel = "stylesheet";
-    mqb.css.href = "http://sparkbox.github.com/mediaQueryBookmarklet/stylesheets/mediaQuery.css";
+    mqb.css.href = "stylesheets/mediaQuery.css";
     document.head.appendChild( mqb.css );
   },
 
@@ -198,7 +210,8 @@ window.mqb = {
   showCurrentSize: function() {
     var width = window.innerWidth || window.outerWidth;
     var height = window.innerHeight || window.outerHeight;
-    mqb.viewDimensions.innerHTML = width + 'px x ' + height + 'px<br/>' + ( width / mqb.findEmSize() ).toPrecision( 4 ) + 'em x ' + ( height / mqb.findEmSize() ).toPrecision( 4 ) + 'em';
+    mqb.viewDimensions.innerHTML = '<div class="mqb--display-width">' + width + 'px</div><div class="mqb--display-height">' + height + 'px</div>';
+    // mqb.viewDimensions.innerHTML = width + 'px x ' + height + 'px<br/>' + ( width / mqb.findEmSize() ).toPrecision( 4 ) + 'em x ' + ( height / mqb.findEmSize() ).toPrecision( 4 ) + 'em';
   },
 
   tmplReplace: function( dstID, src ) {
@@ -209,7 +222,7 @@ window.mqb = {
     mqb.mouseXPosition.style.left = e.clientX + "px";
     mqb.mouseYPosition.style.top = e.clientY + "px";
 
-    mqb.showMousePosition.innerHTML = "x:" + e.clientX + "px&nbsp;&nbsp;&nbsp;y:" + e.clientY + "px";
+    mqb.showMousePosition.innerHTML = "<strong>x</strong><span>" + e.clientX + "px</span> <strong>y</strong><span>" + e.clientY + "px</span>";
   }
 
 };
