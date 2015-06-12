@@ -15,18 +15,16 @@ window.mqb = {
       "<div id=\"mqb-mousePosition\"></div>" +
       "<ol id=\"mqb-queries\"></ol>" +
       "<div id=\"mqb-linksContainer\">" +
-      "  <div>" +
-      "    <label class=\"mqb--ruler-option\">" +
-      "      <span class=\"mqb--ruler-label\">Ruler</span>" +
-      "      <input type=\"checkbox\" class=\"mqb--ruler-checkbox\">" +
-      "      <div class=\"mqb--ruler-switch\"></div>" +
-      "    </label>"+
-      "    <label class=\"mqb--ruler-option\">" +
-      "      <span class=\"mqb--ruler-label\">Pixels</span>" +
-      "      <input type=\"checkbox\" class=\"mqb--ruler-checkbox\">" +
-      "      <div class=\"mqb--ruler-switch\"></div>" +
-      "    </label>"+
-      "  </div>" +
+      "  <label class=\"mqb--settings-option\">" +
+      "    <span class=\"mqb--settings-label\">Ruler</span>" +
+      "    <input type=\"checkbox\" id=\"mqb-settings-ruler\" class=\"mqb--settings-checkbox\">" +
+      "    <div class=\"mqb--settings-switch\"></div>" +
+      "  </label>"+
+      "  <label class=\"mqb--settings-option\">" +
+      "    <span class=\"mqb--settings-label\">Pixels</span>" +
+      "    <input type=\"checkbox\" id=\"mqb-settings-unit\" class=\"mqb--settings-checkbox\">" +
+      "    <div class=\"mqb--settings-switch\"></div>" +
+      "  </label>"+
       "  <a id=\"mqb-version\" href=\"https://github.com/sparkbox/mediaQueryBookmarklet\">version {{version}}</a>" +
       "  <button id=\"mqb-closeButton\">close</button>" +
       "  <button id=\"mqb-positionButton\"></button>" +
@@ -201,7 +199,7 @@ window.mqb = {
 
     for ( var i in mqb.mqList ) {
       if ( mqb.mqList[ i ].matches ) {
-        html += "<li><span>" + mqb.mqList[ i ].media + "</span></li>";
+        html += "<li class=\"mqb-query-items\"><span>" + mqb.mqList[ i ].media + "</span></li>";
       }
     }
     mqb.viewQueries.innerHTML = html;
