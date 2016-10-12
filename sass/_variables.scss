@@ -1,12 +1,2 @@
-/* Colors */
-$flavor         : #10a89e;
-$flavor-text	  : lighten($flavor, 35%);
-$base			  		: #d9d9d9;
-$secondary		  : darken($base, 25%);
-$details		  	: darken($secondary, 25%);
-$emphasis		  	: darken($base, 100%);
-$counter		  	: lighten($base, 100%);
-
-/* Lengths */
-$wrapper-width 	: 35em;
-$intro-ems 			: 1.3em;
+// $bp-medium: 37em;
+$bp-medium: 50em;
