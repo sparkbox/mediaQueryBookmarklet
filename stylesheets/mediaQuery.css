@@ -1,17 +1,34 @@
 #sb-mediaQueryBookmarklet {
-  color: #000;
-  background: #fff;
-  font-weight: bold;
-  opacity: .9;
+  color: white;
+  background-color: black;
+  background-color: rgba(15, 15, 15, 0.95);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-weight: 200;
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
   padding: 5px 15px 15px;
   position: fixed;
-  right: 0;
-  top: 10px;
+  right: 20px;
+  top: 20px;
   z-index: 99999;
+  border-radius: 0.25em;
+  box-shadow: 0 0.25em 0.75em -0.25em rgba(0, 0, 0, 0.8);
+}
+
+#sb-mediaQueryBookmarklet:before {
+  content: '';
+  display: block;
+  height: 10px;
+  width: 10px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  opacity: 0.8;
+  background: black;
 }
 
 #sb-mediaQueryBookmarklet.onLeft {
-  left: 10px;
+  left: 20px;
   right: auto;
 }
 
@@ -32,8 +49,9 @@
 
 #mqb-queries {
   font-size: 16px;
-  list-style: disc;
+  list-style: circle;
   padding: 0 0 0 1em;
+  font-family: monospace;
   text-transform: lowercase;
 }
 
@@ -41,12 +59,30 @@
   font-size: 10px;
   margin-top: 10px;
   text-align: right;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
 }
 
 #mqb-version {
-  color: #444;
+  color: #ccc;
   float: right;
   text-transform: lowercase;
+  width: 100%;
+  text-align: right;
+  margin-bottom: 5px;
 }
 
 #mqb-closeButton {
@@ -54,33 +90,66 @@
   background: transparent;
   border: none;
   clear: right;
-  color: #444;
+  color: #ccc;
+  cursor: pointer;
   display: block;
   float: right;
   margin-top: 5px;
   text-decoration: none;
-}
-#mqb-closeButton:before {
-  content: "(";
-}
-#mqb-closeButton:after {
-  content: ")";
 }
 
 #mqb-positionButton {
   -webkit-appearance: none;
   border: none;
   clear: right;
-  color: #444;
+  color: #ccc;
   cursor: pointer;
-  background: url(http://sparkbox.github.com/mediaQueryBookmarklet/images/left.png) no-repeat 50%;
-  display: block;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
   float: right;
-  height: 15px;
-  width: 44px;
+  height: 17px;
+  background: none;
 }
-.onLeft #mqb-positionButton {
-  background-image: url(http://sparkbox.github.com/mediaQueryBookmarklet/images/right.png);
+
+#mqb-positionButton:before {
+  content: 'Left';
+  display: inline-block;
+  margin-right: 4px;
+}
+
+#mqb-positionButton:after {
+  content: 'Right';
+  display: inline-block;
+  margin-left: 4px;
+}
+
+#mqb-positionButton span {
+  display: inline-block;
+  height: 15px;
+  width: 30px;
+  box-sizing: border-box;
+  border: 1px #bbb solid;
+  border-radius: 15px;
+  position: relative;
+}
+
+#mqb-positionButton span:before {
+  content: '';
+  display: block;
+  height: 9px;
+  width: 9px;
+  background-color: #ddd;
+  border-radius: 50%;
+  position: absolute;
+  top: 2px;
+  right: 2px;
+}
+
+.onLeft #mqb-positionButton span:before {
+  right: auto;
+  left: 2px;
 }
 
 #mqb-emTest {
@@ -89,7 +158,7 @@
 }
 
 #mqb-mouseXPosition {
-  background: #0e6500;
+  background: deeppink;
   display: block;
   height: 20px;
   position: fixed;
@@ -97,8 +166,9 @@
   width: 1px;
   z-index: 99999;
 }
+
 #mqb-mouseYPosition {
-  background: #0e6500;
+  background: deeppink;
   display: block;
   height: 1px;
   position: fixed;
@@ -108,16 +178,30 @@
 }
 
 #mqb-horz-ruler {
-  background: rgba(255, 255, 255, .5) url(http://sparkbox.github.com/mediaQueryBookmarklet/images/ruler.png) repeat-x;
+  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFwAAAAUCAYAAAAA5FpZAAAABGdBTUEAALGPC/xhBQAAAKdJREFUWAnt2MEJgDAMhWEjrucczuQcDlibY6CJCHm3vxdpUl7go4hoY4xzm8vMHn9ma567vTfPXdkZr5O31pkuwzv7uk1VJQC4SjbJBTyBUZUBV8kmuYAnMKoy4CrZJBfwBEZVPr6+v/8OJq8W44bXPu1dwNtJ60DAa5/2LuDtpHUg4LVPe9faEwlcCvC3cMmiL/JK0RuHCYAHDv0GcL1xmAB44NBvXsmCL6+54O3ZAAAAAElFTkSuQmCC) repeat-x;
+  background-size: auto 10px;
   height: 10px;
-  position: fixed;
   top: 0;
+  left: 10px;
   width: 100%;
-}
-#mqb-vert-ruler {
-  background: rgba(255, 255, 255, .5) url(http://sparkbox.github.com/mediaQueryBookmarklet/images/vert-ruler.png) repeat-y;
-  height: 100%;
   position: fixed;
+  border-bottom: 1px solid black;
+}
+
+#mqb-vert-ruler {
+  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAABcCAYAAABugpUMAAAABGdBTUEAALGPC/xhBQAAAIdJREFUWAntmbENwCAQA/PZL3MwE3NkwA/UIIoIF1hH+Qi9fJblgsjM51qciHgX18PVPUwYQMCAQLSk1D86WoLK7B1JmVFhdjyBnhQ65XgbESAnQKfIEbPAggCdYmEjIuQE6BQ5YhZYEKBTLGxEhJwAnSJHzAILAnSKhY2IkBPoScmdW7b/p3yaySgbUY+DDAAAAABJRU5ErkJggg==) repeat-y;
+  background-size: 10px auto;
+  height: 100%;
+  top: 10px;
   left: 0;
   width: 10px;
+  border-right: 1px solid black;
+}
+
+#mqb-horz-ruler,
+#mqb-vert-ruler {
+  background-color: #111;
+  opacity: 0.8;
+  position: fixed;
+  -webkit-backdrop-filter: blur(10px);
 }
