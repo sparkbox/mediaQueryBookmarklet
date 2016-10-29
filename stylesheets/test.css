@@ -1,17 +1,17 @@
 @media (min-width: 500px) {
   body {
-    background: red;
+    background: url(https:unsplash.it/500) red;
   }
 }
 
 @media (min-width: 700px) {
   body {
-    background: blue;
+    background: url(https:unsplash.it/700) blue;
   }
 }
 
 @media (min-width: 900px) {
   body {
-    background: green;
+    background: url(https:unsplash.it/900) green;
   }
 }
