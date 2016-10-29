@@ -180,8 +180,7 @@ window.mqb = {
     mqb.css = document.createElement( 'link' );
     mqb.css.type = "text/css";
     mqb.css.rel = "stylesheet";
-    mqb.css.href = "http://sparkbox.github.com/mediaQueryBookmarklet/stylesheets/mediaQuery.css";
-    mqb.css.href = "//localhost:8008/stylesheets/mediaQuery.css";
+    mqb.css.href = "https://sparkbox.github.io/mediaQueryBookmarklet/stylesheets/mediaQuery.css";
     debugger;
     document.head.appendChild( mqb.css );
   },
