@@ -211,7 +211,7 @@ window.mqb = {
     mqb.css = document.createElement( 'link' );
     mqb.css.type = "text/css";
     mqb.css.rel = "stylesheet";
-    mqb.css.href = "http://sparkbox.github.com/mediaQueryBookmarklet/stylesheets/mediaQuery.css";
+    mqb.css.href = "https://sparkbox.github.io/mediaQueryBookmarklet/stylesheets/mediaQuery.css";
     mqb.css.href = "http://localhost/mediaQueryBookmarklet/css/mediaQuery.css";
     document.head.appendChild( mqb.css );
   },
