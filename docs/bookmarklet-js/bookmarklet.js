@@ -1,0 +1,1 @@
+javascript:%20(function%20()%20{var%20jsCode%20=%20document.createElement(%27script%27);jsCode.setAttribute(%27src%27,%20%27http://sparkbox.github.com/mediaQueryBookmarklet/bookmarklet-js/mediaQueryBookmarklet.js%27);document.body.appendChild(jsCode);}());

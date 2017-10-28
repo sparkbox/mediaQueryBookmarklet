@@ -1,0 +1,88 @@
+body {
+  font-family: "Avenir Next", "Helvetica Neue", Arial, sans-serif;
+  color: #686868;
+  background-color: white;
+  margin: 0;
+}
+
+a {
+  color: #50B7C8;
+}
+
+a[class],
+a:not([href]) {
+  text-decoration: none;
+}
+
+code {
+  font-family: Monaco, monospace;
+}
+
+.content-wrapper {
+  box-sizing: border-box;
+  width: 95%;
+  max-width: 50em;
+  margin: 0 auto;
+}
+
+.main-heading {
+  font-size: 1em;
+  overflow: hidden;
+  text-align: center;
+  max-width: 40em;
+  margin: 1em auto;
+  background-size: contain;
+  background-position: center center;
+  position: relative;
+
+  svg {
+    width: 100%;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+  }
+
+  @media(min-width: $bp-medium) {
+    margin: 3em auto;
+  }
+
+  &:after {
+    padding-top: (90/482)*100%;
+    content: '';
+    display: block;
+  }
+}
+
+.tagline {
+  color: #acacac;
+  text-align: center;
+  margin: 0;
+}
+
+.description {
+  font-size: 1.125em;
+  @media(min-width: $bp-medium) {
+    font-size: 1.5em;
+  }
+}
+
+
+.section-heading {
+  margin-top: 2em;
+  font-size: 1.5em;
+  color: #50B7C8;
+  @media (min-width: $bp-medium) {
+    font-size: 1.9em;
+  }
+}
+
+.footer {
+  border-top: 1px solid #eee;
+  margin: 3em 0;
+  padding: 3em 0 0;
+  p {
+    margin: 0;
+  }
+}
