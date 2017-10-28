@@ -1,0 +1,46 @@
+.getItList {
+  list-style: none;
+  padding: 0;
+  margin: 2em 0;
+  // max-width: 37em;
+
+  @media (min-width: 50em) {
+    margin: 6em auto;
+  }
+}
+
+.getItList-item {
+  text-align: center;
+
+  & + & {
+    margin-top: 3em;
+    @media (min-width: 50em) {
+      margin-top: 4em;
+    }
+  }
+}
+
+.button {
+  white-space: nowrap;
+  padding: 0.5rem;
+  font-size: 1em;
+  border-radius: 0.375em;
+  text-decoration: none;
+
+  @media (min-width: 50em) {
+    padding: 0.5rem 0.875rem;
+    font-size: 1.125em;
+  }
+}
+
+.button-gray {
+  color: #333;
+  background-color: #F3F3F3;
+  border: 1px solid #E4E4E4;
+}
+
+.button-blue {
+  color: white;
+  background-color: #50B7C8;
+  border: 1px solid darken(#50B7C8, 10%);
+}
