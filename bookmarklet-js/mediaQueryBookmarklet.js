@@ -9,15 +9,15 @@ window.mqb = {
       document.body.removeChild( bookmarklet );
     }
 
-    mqb.version = '1.4.4';
+    mqb.version = '1.5.0';
     mqb.tmpl =
       "<p id=\"mqb-dimensions\"></p>" +
       "<p id=\"mqb-mousePosition\"></p>" +
       "<ol id=\"mqb-queries\"></ol>" +
       "<div id=\"mqb-linksContainer\">" +
       "  <a id=\"mqb-version\" href=\"https://github.com/sparkbox/mediaQueryBookmarklet\">version {{version}}</a>" +
-      "  <button id=\"mqb-closeButton\">close</button>" +
-      "  <button id=\"mqb-positionButton\"></button>" +
+      "  <button id=\"mqb-closeButton\">&times; Close</button>" +
+      "  <button id=\"mqb-positionButton\"><span></span></button>" +
       "</div>";
     mqb.rulersTmpl =
       "<div id=\"mqb-horz-ruler\">" +
@@ -180,7 +180,7 @@ window.mqb = {
     mqb.css = document.createElement( 'link' );
     mqb.css.type = "text/css";
     mqb.css.rel = "stylesheet";
-    mqb.css.href = "http://sparkbox.github.com/mediaQueryBookmarklet/stylesheets/mediaQuery.css";
+    mqb.css.href = "https://sparkbox.github.io/mediaQueryBookmarklet/stylesheets/mediaQuery.css";
     document.head.appendChild( mqb.css );
   },
 
@@ -198,7 +198,7 @@ window.mqb = {
   showCurrentSize: function() {
     var width = window.innerWidth || window.outerWidth;
     var height = window.innerHeight || window.outerHeight;
-    mqb.viewDimensions.innerHTML = width + 'px x ' + height + 'px<br/>' + ( width / mqb.findEmSize() ).toPrecision( 4 ) + 'em x ' + ( height / mqb.findEmSize() ).toPrecision( 4 ) + 'em';
+    mqb.viewDimensions.innerHTML = width + 'px &times; ' + height + 'px<br/>' + ( width / mqb.findEmSize() ).toPrecision( 4 ) + 'em &times; ' + ( height / mqb.findEmSize() ).toPrecision( 4 ) + 'em';
   },
 
   tmplReplace: function( dstID, src ) {
